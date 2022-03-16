@@ -27,3 +27,12 @@ extension Text {
       )
   }
 }
+
+extension Image {
+  func symbolModifier() -> some View {
+    self
+      .foregroundColor(.white)
+      .font(.system(size: 128))
+      .shadow(color: .black.opacity(0.2), radius: 12, x: 0, y: 0)
+  }
+}
