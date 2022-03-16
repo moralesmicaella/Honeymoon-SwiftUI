@@ -14,6 +14,7 @@ struct ContentView: View {
   @State private var showAlert: Bool = false
   @State private var showInfo: Bool = false
   @State private var showGuide: Bool = false
+  @GestureState private var dragState = DragState.inactive
   
   private var cardViews: [CardView] = {
     var views = [CardView]()
@@ -22,7 +23,7 @@ struct ContentView: View {
     }
     return views
   }()
-  
+    
   // MARK: - FUNCTION
   
   private func isTopCard(_ cardView: CardView) -> Bool {
@@ -39,6 +40,8 @@ struct ContentView: View {
     VStack {
       // MARK: - HEADER
       HeaderView(showInfoView: $showInfo, showGuideView: $showGuide)
+        .opacity(dragState.isDragging ? 0 : 1)
+        .animation(.default, value: dragState.isDragging)
       
       Spacer()
       
@@ -47,6 +50,24 @@ struct ContentView: View {
         ForEach(cardViews) { cardView in
           cardView
             .zIndex(isTopCard(cardView) ? 1 : 0)
+            .offset(x: isTopCard(cardView) ? dragState.translation.width : 0, y: isTopCard(cardView) ? dragState.translation.height : 0)
+            .scaleEffect((isTopCard(cardView) && dragState.isDragging) ? 0.75 : 1.0)
+            .rotationEffect(Angle(degrees: isTopCard(cardView) ? Double(dragState.translation.width / 12) : 0))
+            .animation(.interpolatingSpring(stiffness: 120, damping: 120), value: dragState.isDragging)
+            .gesture(
+              LongPressGesture(minimumDuration: 0.01)
+                .sequenced(before: DragGesture())
+                .updating($dragState, body: { value, state, transaction in
+                  switch value {
+                  case .first(true):
+                    state = .pressing
+                  case .second(true, let drag):
+                    state = .dragging(translation: drag?.translation ?? .zero)
+                  default:
+                    break
+                  }
+                })
+            )
         }
       } //: ZSTACK
       .padding(.horizontal)
@@ -55,6 +76,8 @@ struct ContentView: View {
       
       // MARK: - FOOTER
       FooterView(showBookingAlert: $showAlert)
+        .opacity(dragState.isDragging ? 0 : 1)
+        .animation(.default, value: dragState.isDragging)
     } //: VSTACK
     .alert("SUCCESS", isPresented: $showAlert) {
       Button("Happy Honeymoon!", role: .cancel) { }
@@ -71,5 +94,40 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView()
+  }
+}
+
+// MARK: - DRAG STATES
+
+fileprivate enum DragState {
+  case inactive
+  case pressing
+  case dragging(translation: CGSize)
+  
+  var translation: CGSize {
+    switch self {
+    case .inactive, .pressing:
+      return .zero
+    case .dragging(let translation):
+      return translation
+    }
+  }
+  
+  var isDragging: Bool {
+    switch self {
+    case .dragging:
+      return true
+    case .inactive, .pressing:
+      return false
+    }
+  }
+  
+  var isPressing: Bool {
+    switch self {
+    case .pressing, .dragging:
+      return true
+    case .inactive:
+      return false
+    }
   }
 }
