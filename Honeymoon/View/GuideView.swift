@@ -9,10 +9,14 @@ import SwiftUI
 
 struct GuideView: View {
   
+  // MARK: - PROPERTY
+  
+  @Environment(\.presentationMode) private var presentationMode
+  
   // MARK: - FUNCTION
   
   func onContinueButtonPressed() {
-    
+    presentationMode.wrappedValue.dismiss()
   }
   
   // MARK: - BODY
@@ -70,6 +74,7 @@ struct GuideView: View {
                 .fill(Color.pink)
             )
         }
+        .buttonStyle(.plain)
       } //: VSTACK
       .frame(minWidth: 0, maxWidth: .infinity)
       .padding(.top, 15)

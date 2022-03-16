@@ -9,10 +9,14 @@ import SwiftUI
 
 struct FooterView: View {
   
+  // MARK: - PROPERTY
+  
+  @Binding var showBookingAlert: Bool
+  
   // MARK: - FUNCTION
   
   private func onBookButtonPressed() {
-    
+    showBookingAlert = true
   }
   
   // MARK: - BODY
@@ -51,7 +55,7 @@ struct FooterView: View {
 
 struct FooterView_Previews: PreviewProvider {
   static var previews: some View {
-    FooterView()
+    FooterView(showBookingAlert: .constant(false))
       .previewLayout(.fixed(width: 375, height: 80))
   }
 }

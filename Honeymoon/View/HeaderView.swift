@@ -9,6 +9,10 @@ import SwiftUI
 
 struct HeaderView: View {
   
+  // MARK: - PROPERTY
+  
+  @Binding var showGuideView: Bool
+  
   // MARK: - FUNCTION
   
   private func onInfoButtonPressed() {
@@ -16,7 +20,7 @@ struct HeaderView: View {
   }
   
   private func onQuestionButtonPressed() {
-    
+    showGuideView = true
   }
   
   // MARK: - BODY
@@ -45,6 +49,9 @@ struct HeaderView: View {
           .foregroundColor(.primary)
       }
       .buttonStyle(.plain)
+      .sheet(isPresented: $showGuideView) {
+        GuideView()
+      }
 
     } //: HSTACK
     .padding()
@@ -55,7 +62,7 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    HeaderView()
+    HeaderView(showGuideView: .constant(false))
       .previewLayout(.fixed(width: 375, height: 80))
   }
 }

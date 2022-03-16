@@ -9,12 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
   
+  // MARK: - PROPERTY
+  
+  @State private var showAlert: Bool = false
+  @State private var showGuide: Bool = false
+  
   // MARK: - BODY
   
   var body: some View {
     VStack {
       // MARK: - HEADER
-      HeaderView()
+      HeaderView(showGuideView: $showGuide)
       
       Spacer()
       
@@ -24,8 +29,15 @@ struct ContentView: View {
       Spacer()
       
       // MARK: - FOOTER
-      FooterView()
+      FooterView(showBookingAlert: $showAlert)
+    } //: VSTACK
+    .alert("SUCCESS", isPresented: $showAlert) {
+      Button("Happy Honeymoon!", role: .cancel) { }
+      .buttonStyle(.plain)
+    } message: {
+      Text("Wishing a lovely and most precious of the times together for the amazing couple.")
     }
+    
   }
 }
 
