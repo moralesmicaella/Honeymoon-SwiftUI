@@ -11,12 +11,13 @@ struct HeaderView: View {
   
   // MARK: - PROPERTY
   
+  @Binding var showInfoView: Bool
   @Binding var showGuideView: Bool
   
   // MARK: - FUNCTION
   
   private func onInfoButtonPressed() {
-    
+    showInfoView = true
   }
   
   private func onQuestionButtonPressed() {
@@ -33,6 +34,9 @@ struct HeaderView: View {
           .foregroundColor(.primary)
       }
       .buttonStyle(.plain)
+      .sheet(isPresented: $showInfoView) {
+        InfoView()
+      }
       
       Spacer()
       
@@ -62,7 +66,7 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    HeaderView(showGuideView: .constant(false))
+    HeaderView(showInfoView: .constant(false), showGuideView: .constant(false))
       .previewLayout(.fixed(width: 375, height: 80))
   }
 }

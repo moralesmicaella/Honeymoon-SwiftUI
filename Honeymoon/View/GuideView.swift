@@ -29,9 +29,7 @@ struct GuideView: View {
         Spacer(minLength: 10)
         
         Text("Get Started!")
-          .font(.largeTitle)
-          .fontWeight(.black)
-          .foregroundColor(.pink)
+          .titleModifier()
         
         Text("Discover and pick the perfect destination for your romantic Honeymoon!")
           .multilineTextAlignment(.center)
@@ -65,14 +63,7 @@ struct GuideView: View {
         
         Button(action: onContinueButtonPressed) {
           Text("CONTINUE")
-            .font(.headline)
-            .foregroundColor(.white)
-            .padding()
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .background(
-              Capsule()
-                .fill(Color.pink)
-            )
+            .buttonModifier()
         }
         .buttonStyle(.plain)
       } //: VSTACK
