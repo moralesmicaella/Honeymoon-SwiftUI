@@ -17,6 +17,7 @@
 		243E53D227E191F9002C4243 /* HoneymoonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243E53D127E191F9002C4243 /* HoneymoonModel.swift */; };
 		243E53D427E1922C002C4243 /* HoneymoonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243E53D327E1922C002C4243 /* HoneymoonData.swift */; };
 		243E53D727E19291002C4243 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243E53D627E19291002C4243 /* CardView.swift */; };
+		243E53D927E19508002C4243 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243E53D827E19508002C4243 /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		243E53D127E191F9002C4243 /* HoneymoonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneymoonModel.swift; sourceTree = "<group>"; };
 		243E53D327E1922C002C4243 /* HoneymoonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneymoonData.swift; sourceTree = "<group>"; };
 		243E53D627E19291002C4243 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		243E53D827E19508002C4243 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			children = (
 				243E53BB27E18CA6002C4243 /* ContentView.swift */,
 				243E53D627E19291002C4243 /* CardView.swift */,
+				243E53D827E19508002C4243 /* HeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				243E53D427E1922C002C4243 /* HoneymoonData.swift in Sources */,
+				243E53D927E19508002C4243 /* HeaderView.swift in Sources */,
 				243E53D227E191F9002C4243 /* HoneymoonModel.swift in Sources */,
 				243E53BC27E18CA6002C4243 /* ContentView.swift in Sources */,
 				243E53BA27E18CA6002C4243 /* HoneymoonApp.swift in Sources */,
