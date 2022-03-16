@@ -14,17 +14,18 @@ struct ContentView: View {
   @State private var showAlert: Bool = false
   @State private var showInfo: Bool = false
   @State private var showGuide: Bool = false
-  @GestureState private var dragState = DragState.inactive
-  
-  private let dragAreaThreshold: CGFloat = 65.0
-  
-  private var cardViews: [CardView] = {
+  @State private var lastCardIndex: Int = 1
+  @State private var cardViews: [CardView] = {
     var views = [CardView]()
     for index in 0..<2 {
       views.append(CardView(honeymoon: honeymoonData[index]))
     }
     return views
   }()
+  
+  @GestureState private var dragState = DragState.inactive
+  
+  private let dragAreaThreshold: CGFloat = 65.0
     
   // MARK: - FUNCTION
   
@@ -34,6 +35,15 @@ struct ContentView: View {
     }
     
     return index == 0
+  }
+  
+  private func moveCards() {
+    cardViews.removeFirst()
+    lastCardIndex += 1
+    
+    let honeymoon = honeymoonData[lastCardIndex % honeymoonData.count]
+    let newCardView = CardView(honeymoon: honeymoon)
+    cardViews.append(newCardView)
   }
   
   // MARK: - BODY
@@ -61,7 +71,6 @@ struct ContentView: View {
                 Image(systemName: "heart.circle")
                   .symbolModifier()
                   .opacity((isTopCard(cardView) && dragState.translation.width > dragAreaThreshold) ? 1 : 0)
-                
               }
             }
             .offset(x: isTopCard(cardView) ? dragState.translation.width : 0, y: isTopCard(cardView) ? dragState.translation.height : 0)
@@ -79,6 +88,15 @@ struct ContentView: View {
                     state = .dragging(translation: drag?.translation ?? .zero)
                   default:
                     break
+                  }
+                })
+                .onEnded({ value in
+                  guard case .second(true, let drag?) = value else {
+                    return
+                  }
+                  
+                  if drag.translation.width < -dragAreaThreshold || drag.translation.width > dragAreaThreshold {
+                    moveCards()
                   }
                 })
             )
