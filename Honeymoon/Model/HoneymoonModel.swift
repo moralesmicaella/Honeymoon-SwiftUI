@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Destination: Identifiable {
-  let id = UUID()
+struct Destination {
   let place: String
   let country: String
   let image: String

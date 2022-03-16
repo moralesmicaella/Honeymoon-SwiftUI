@@ -15,6 +15,24 @@ struct ContentView: View {
   @State private var showInfo: Bool = false
   @State private var showGuide: Bool = false
   
+  private var cardViews: [CardView] = {
+    var views = [CardView]()
+    for index in 0..<2 {
+      views.append(CardView(honeymoon: honeymoonData[index]))
+    }
+    return views
+  }()
+  
+  // MARK: - FUNCTION
+  
+  private func isTopCard(_ cardView: CardView) -> Bool {
+    guard let index = cardViews.firstIndex(where: { $0.id == cardView.id }) else {
+      return false
+    }
+    
+    return index == 0
+  }
+  
   // MARK: - BODY
   
   var body: some View {
@@ -24,8 +42,14 @@ struct ContentView: View {
       
       Spacer()
       
-      CardView(honeymoon: honeymoonData[0])
-        .padding()
+      // MARK: - CARDS
+      ZStack {
+        ForEach(cardViews) { cardView in
+          cardView
+            .zIndex(isTopCard(cardView) ? 1 : 0)
+        }
+      } //: ZSTACK
+      .padding(.horizontal)
       
       Spacer()
       
