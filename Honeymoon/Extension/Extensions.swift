@@ -36,3 +36,17 @@ extension Image {
       .shadow(color: .black.opacity(0.2), radius: 12, x: 0, y: 0)
   }
 }
+
+extension AnyTransition {
+  static var trailingBottom: AnyTransition {
+    AnyTransition.asymmetric(
+      insertion: .identity,
+      removal: AnyTransition.move(edge: .trailing).combined(with: .move(edge: .bottom)))
+  }
+  
+  static var leadingBottom: AnyTransition {
+    AnyTransition.asymmetric(
+      insertion: .identity,
+      removal: AnyTransition.move(edge: .leading).combined(with: .move(edge: .bottom)))
+  }
+}

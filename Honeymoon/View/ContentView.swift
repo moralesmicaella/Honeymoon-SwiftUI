@@ -15,6 +15,7 @@ struct ContentView: View {
   @State private var showInfo: Bool = false
   @State private var showGuide: Bool = false
   @State private var lastCardIndex: Int = 1
+  @State private var cardRemovalTransition = AnyTransition.trailingBottom
   @State private var cardViews: [CardView] = {
     var views = [CardView]()
     for index in 0..<2 {
@@ -90,6 +91,17 @@ struct ContentView: View {
                     break
                   }
                 })
+                .onChanged({ value in
+                  guard case .second(true, let drag?) = value else {
+                    return
+                  }
+                  
+                  if drag.translation.width < -dragAreaThreshold {
+                    cardRemovalTransition = .leadingBottom
+                  } else if drag.translation.width > dragAreaThreshold {
+                    cardRemovalTransition = .trailingBottom
+                  }
+                })
                 .onEnded({ value in
                   guard case .second(true, let drag?) = value else {
                     return
@@ -100,6 +112,7 @@ struct ContentView: View {
                   }
                 })
             )
+            .transition(cardRemovalTransition)
         }
       } //: ZSTACK
       .padding(.horizontal)
