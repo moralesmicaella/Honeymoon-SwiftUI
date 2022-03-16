@@ -10,11 +10,12 @@ import SwiftUI
 struct HeaderView: View {
   
   // MARK: - FUNCTION
-  func infoButtonPressed() {
+  
+  private func onInfoButtonPressed() {
     
   }
   
-  func questionButtonPressed() {
+  private func onQuestionButtonPressed() {
     
   }
   
@@ -22,7 +23,7 @@ struct HeaderView: View {
   
   var body: some View {
     HStack {
-      Button(action: infoButtonPressed) {
+      Button(action: onInfoButtonPressed) {
         Image(systemName: "info.circle")
           .font(.system(size: 24, weight: .regular))
           .foregroundColor(.primary)
@@ -38,7 +39,7 @@ struct HeaderView: View {
       
       Spacer()
       
-      Button(action: questionButtonPressed) {
+      Button(action: onQuestionButtonPressed) {
         Image(systemName: "questionmark.circle")
           .font(.system(size: 24, weight: .regular))
           .foregroundColor(.primary)

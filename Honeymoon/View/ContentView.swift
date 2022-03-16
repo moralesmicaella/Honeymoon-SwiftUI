@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+  
+  // MARK: - BODY
+  
   var body: some View {
     VStack {
+      // MARK: - HEADER
       HeaderView()
       
       Spacer()
@@ -18,9 +22,14 @@ struct ContentView: View {
         .padding()
       
       Spacer()
+      
+      // MARK: - FOOTER
+      FooterView()
     }
   }
 }
+
+// MARK: - PREVIEW
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
