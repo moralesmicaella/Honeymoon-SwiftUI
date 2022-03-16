@@ -14,13 +14,19 @@ struct HeaderView: View {
   @Binding var showInfoView: Bool
   @Binding var showGuideView: Bool
   
+  private let haptics = UINotificationFeedbackGenerator()
+  
   // MARK: - FUNCTION
   
   private func onInfoButtonPressed() {
+    playMP3Sound("sound-click")
+    haptics.notificationOccurred(.success)
     showInfoView = true
   }
   
   private func onQuestionButtonPressed() {
+    playMP3Sound("sound-click")
+    haptics.notificationOccurred(.success)
     showGuideView = true
   }
   

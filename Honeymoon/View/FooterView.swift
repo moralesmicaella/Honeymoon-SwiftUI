@@ -13,9 +13,13 @@ struct FooterView: View {
   
   @Binding var showBookingAlert: Bool
   
+  private let haptics = UINotificationFeedbackGenerator()
+  
   // MARK: - FUNCTION
   
   private func onBookButtonPressed() {
+    playMP3Sound("sound-click")
+    haptics.notificationOccurred(.success)
     showBookingAlert = true
   }
   
